@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 버블링 테스트!!!!</title>
+</head>
+<style>
+    body {
+        position: relative;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        align-content: center;
+        margin: 0 auto;
+
+    }
+    article {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border: 1px solid red;
+        width: 500px;
+        height: 500px;
+    }
+
+    div {
+        border: 1px solid orange;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+    }
+
+    p {
+        border: 1px solid yellowgreen;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        
+    }
+
+    button {
+        border: 1px solid green;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+    }
+</style>
+<body>
+    <article>
+        ARTICLE
+        <div>
+            DIV
+            <p>
+                P
+                <br/>
+                <button>BUTTON</button>
+            </p>
+        </div>
+    </article>
+</body>
+    <script>
+        const article = document.querySelector('article');
+        const div = document.querySelector('div');
+        const paragraph = document.querySelector('p');
+        const button = document.querySelector('button');
+
+        article.addEventListener('click', () => window.alert('article'))
+        div.addEventListener('click', () => window.alert('div'))
+        paragraph.addEventListener('click', () => window.alert('paragraph'))
+        button.addEventListener('click', () => window.alert('button'))
+        
+        // button을 누루면 현재 위치 button에서 상위 Article까지 모든 alert가 출력됨 이것이 버블링!!!
+        // 이러한 버블링을 방지하기 위해서 event.stopPropagation()을 사용!
+
+        button.addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            window.alert('button');
+        })
+    </script>
+</html>

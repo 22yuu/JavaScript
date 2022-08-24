@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce</title>
+</head>
+<body>
+    <form>
+        <input type="text"/>
+    </form>
+</body>
+    <script>
+        let i = 0;
+
+        document.querySelector('input').addEventListener('keyup', debounce(() => {
+            i = i + 1;
+            console.log(i);
+        }, 1500),
+        );
+
+        // 마지막 호출 이후 일정 밀리세컨드 이후로 지연된 호출을 하도록 debounce된 함수를 만듬
+        // 실행시킬 함수, 지연시킬 밀리세컨드
+        function debounce(callback, wait) {
+            let timeout; // 초기 undefined
+
+            // 함수가 호출시 매번 반환
+            return function (...args) {
+                const context = this; // 화살표 함수에서의 this를 우회하려고 상위에서 this를 할당?
+
+                clearTimeout(timeout); // 타이머를 취소 시켜준다.
+                timeout = setTimeout(() => callback.apply(context, args), wait);
+            };
+        }
+        // 디바운스 함수를 사용하는 가장 큰 이유는 이벤트 발생이 많을 떄 가장 마지막 이벤트만을 실행시켜줌으로서 서버의 부하를 줄여주기 위한 함수이다.
+    </script>
+</html>

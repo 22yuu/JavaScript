@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 위임 테스트!!!!</title>
+</head>
+<style>
+    body {
+        text-align: center;
+    }
+    h1 {
+        border: 1px solid orange;
+        width: 300px;        
+    }
+
+
+    .list {
+        border: 1px solid orange;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+    }
+
+
+    ul>li {
+        border: 1px solid blue;
+        width: 100px;
+    }
+</style>
+<body>
+    <h1>장바구니</h1>
+    <ul>
+        <li>노트북</li>
+        <li>모니터</li>
+        <li>책상</li>
+        <li>의자</li>
+        <li>키보드</li>
+        <li>마우스</li>
+    </ul>
+    
+</body>
+    <script>
+        // 이벤트 위임 -> 이벤트 캡처링, 버블링을 이용한 패턴
+        const items = document.querySelector('ul');
+        items.addEventListener('click', (event) => {
+            console.log(event.target);
+            if(event.target.nodeName === 'LI') {
+                event.target.style.background = 'blue';
+            }
+        });
+        
+    </script>
+</html>

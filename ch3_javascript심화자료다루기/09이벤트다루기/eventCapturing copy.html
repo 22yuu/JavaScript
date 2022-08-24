@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 캡처링 테스트!!!!</title>
+</head>
+<style>
+    
+    
+    .list {
+        border: 1px solid orange;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform:translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+    }
+
+    div {
+        border: 1px solid orange;
+        width: 300px;        
+    }
+
+    ul>li {
+        border: 1px solid blue;
+        width: 100px;
+    }
+</style>
+<body>
+    
+    
+    <div class="list">
+        <div><h1>장바구니</h1></div>
+        <ul>
+            <li>노트북</li>
+            <li>모니터</li>
+            <li>책상</li>
+            <li>의자</li>
+            <li>키보드</li>
+            <li>마우스</li>
+        </ul>
+    </div>
+    
+</body>
+    <script>
+        const container = document.querySelector('div');
+        const list = document.querySelector('ul');
+
+        container.addEventListener('click', (event) => {
+            console.info('div에 이벤트 발생!');
+            event.target.style.background = 'blue';
+        }, {
+            capture: true, // default false / capture를 true로 줌으로서 이벤트 캡처링 방지!!!
+        });
+
+        list.addEventListener('click', (event) => {
+            console.info('UL 이벤트 발생');
+            event.target.style.background = 'red';
+        }, true) // 혹은 이렇게 3번째 파라미터에 그냥 true만 줘도 됨
+    </script>
+</html>

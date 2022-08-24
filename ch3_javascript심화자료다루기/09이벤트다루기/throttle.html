@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttle</title>
+</head>
+<style>
+    div {
+        border: 1px solid black;
+        width:500px;
+        height: 600px;
+    }
+</style>
+<body>
+    <div style="background-color: red"><h2>1</h2></div>
+    <div style="background-color: orange"><h2>2</h2></div>
+    <div style="background-color: yellow"><h2>3</h2></div>
+    <div style="background-color: green"><h2>4</h2></div>
+    <div style="background-color: blue"><h2>5</h2></div>
+    <div style="background-color: navy"><h2>6</h2></div>
+    <div style="background-color: violet"><h2>7</h2></div>
+</body>
+    <script>
+        /**
+         * throttle
+         * spa나 무한로딩 페이지 같은 곳에서 많이 사용
+         * 
+         * */
+        let i = 0;
+
+        window.addEventListener('scroll', throttle(() => {
+            i = i + 1;
+            console.log(i);
+            },1000)
+        );
+
+        /**
+         * 
+         * 이벤트 발생이 많을 때 특정 밀리세컨드 동안 이벤트를 차단하고 단 한번만 실행시킨다.
+         * 
+         * 실행시킬 함수, 지연시킬 밀리세컨드
+         * 
+         * debounce와 throttle의 예제를 볼려면 Lodash 를 참고!!!
+         * */
+        function throttle(callback, wait) {
+            let timeout = null;
+
+            return function(...args) {
+                const context = this;
+
+                if(!timeout) {
+                    timeout = setTimeout(() => {
+                        callback.apply(this, args);
+                        timeout = null;
+                    }, wait)
+                }
+            }
+        }
+    </script>
+</html>
