@@ -1,0 +1,17 @@
+{
+    // typescript 컴파일러에 포함되어질 파일들을 include로 설정
+    "include": [
+        "src/**/*.ts" // src폴더 하위 폴더 .ts확장자
+    ],
+    "exclude": [ // 제외할 폴더
+        "node_modules"
+    ],
+    "compilerOptions": {
+        "module": "es6",
+        "rootDir": "src",
+        "outDir": "dist", // ts 파일들이 만들어지는 최상위 폴더
+        "target": "es6",
+        "sourceMap": true, // sourceMap 속성을 true로 주게 되면 브라우저 상에서 코드 소스를 볼 수 있음
+        "removeComments": true, // 주석을 제거하고 배포
+    }
+}
