@@ -1,5 +1,5 @@
 import {html} from 'lit';
-import { fetchGetRecentOrders } from '../api/index.js';
+import { fetchGetRecentOrders, fetchGetMenuGroups } from '../api/index.js';
 
 import View from '../view.js';
 
@@ -32,21 +32,41 @@ export default class MenuPage extends View {
         
         this.tabIndex = 0;
         this.recentMenuItems = [];
+        this.menuGroups = [];
 
         fetchGetRecentOrders().then(
-            (response) => (this.recentMenuItems = response),
+            (response) => {
+                this.recentMenuItems = response
+                console.log(response);
+            },
         );
+
+        fetchGetMenuGroups().then(
+            (response) => {
+                // this.menuGroups = response
+                console.log(response);
+                this.menuGroups = response;
+            },
+        );
+
+        
     }
 
     static get properties() {
         return {
             tabIndex: { type: Number},
+            selectedCategory: {type: String},
             recentMenuItems: {type: Array},
+            menuGroups: {type: Array},
         };
     }
 
     onChangeTab(index) {
         this.tabIndex = index;
+    }
+
+    onChangeCategory(category) {
+        this.selectedCategory = category;
     }
 
     redirectDetailPage(id) {
@@ -55,6 +75,14 @@ export default class MenuPage extends View {
     }
 
     render() {
+        const categories = this.menuGroups.map(({category, categoryName}) => ({
+            category,
+            categoryName,
+        }));
+        console.log(this.menuGroups);
+        console.log(categories);
+
+
         return html`<div class="order-info-area">
         <div class="common-inner">
             <div class="info-main-title">
@@ -89,10 +117,10 @@ export default class MenuPage extends View {
                 </div>
                 <div class="recent-menu-area scroll-x">
                     <ul class="recent-menu-list">
-                        ${this.recentMenuItems.map(({id, isPopular, imageUrl, name, price}) => html`<li class="recent-menu-item is-ordered" @click=${() => this.redirectDetailPage(id)}>
+                    ${this.recentMenuItems.map(({id, isPopular, imageUrl, name, price}) => html`<li class="recent-menu-item is-ordered" @click=${() => this.redirectDetailPage(id)}>
                         <a>
                             <div class="menu-img-area">
-                                ${isPopular? '<span class="badge-popular hidden">인기</span>' : ''}
+                                ${isPopular? html`<span class="badge-popular hidden">인기</span>` : ''}
                                 <img src="https://via.placeholder.com/80" alt="메뉴사진" class="menu-img">
                             </div>
                         </a>
@@ -107,7 +135,114 @@ export default class MenuPage extends View {
                 </div>
             </div>
         </div>
-    </div>`;
+    </div>
+    <!-- //주문정보영역 -->
+        
+    <!-- 메뉴 카테고리 영역-->
+    <div class="menu-category-area">
+        <div class="common-inner">
+            <ul class="category-list scroll-x">
+            ${
+                categories.map(
+                    ({category, categoryName}) =>
+
+                    html`
+                    <li class="category-item"><a @click=${this.onChangeCategory} class="category-tab">${categoryName}</a></li>
+                    `
+                )
+            }
+            </ul>
+        </div>
+    </div>
+    <!-- //메뉴 카테고리 영역-->
+    ${this.menuGroups.map((menuGroup) => (
+        html`<div class="menu-list-area new">
+        <div class="common-inner">
+            <div class="menu-category">
+                <p class="title">새로 나온 메뉴</p>
+            </div>
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="./detail.html" class="menu-detail">
+                        <div class="menu-img-area">
+                            <img src="https://via.placeholder.com/100x110/ffffff/000000" alt="{메뉴명}" class="menu-img" width="100" height="110"> <!-- 사이즈가 변경되지 않는 확실한 부분은 width, height 값을 명시해주는게 좋다.-->
+                        </div>
+                        <div class="menu-info-area">
+                            <p class="menu-name-group">
+                                <span class="menu-name">메뉴이름</span>
+                                <img src="../assets/images/ico-new.svg" alt="new" class="ico-new">
+                            </p>
+                            <div class="menu-order-info">
+                                <span class="menu-grade">
+                                    <img src="../assets/images/ico-star.svg" alt="별점" class="ico-star">5.00
+                                </span>
+                                <span class="menu-number-of-order">주문수<em>999</em></span>
+                            </div>
+                            <p class="menu-desc">메뉴에 대한 간단한 설명이 적혀있습니다.</p>
+                            <p class="menu-price">9,999원</p>
+                        </div>
+                    </a>
+                    <a href="#" class="btn-cart">
+                        <img class="ico-cart" src="../assets/images/ico-cart-fill-green.svg" alt="주문하기">
+                        <span class="num">1</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="./detail.html" class="menu-detail">
+                        <div class="menu-img-area">
+                            <img src="https://via.placeholder.com/100x110/ffffff/000000" alt="{메뉴명}" class="menu-img" width="100" height="110"> <!-- 사이즈가 변경되지 않는 확실한 부분은 width, height 값을 명시해주는게 좋다.-->
+                        </div>
+                        <div class="menu-info-area">
+                            <p class="menu-name-group">
+                                <span class="menu-name">메뉴이름</span>
+                                <img src="../assets/images/ico-new.svg" alt="new" class="ico-new">
+                            </p>
+                            <div class="menu-order-info">
+                                <span class="menu-grade">
+                                    <img src="../assets/images/ico-star.svg" alt="별점" class="ico-star">5.00
+                                </span>
+                                <span class="menu-number-of-order">주문수<em>999</em></span>
+                            </div>
+                            <p class="menu-desc">메뉴에 대한 간단한 설명이 적혀있습니다.</p>
+                            <p class="menu-price">9,999원</p>
+                        </div>
+                    </a>
+                    <a href="#" class="btn-cart">
+                        <img class="ico-cart" src="../assets/images/ico-cart.svg" alt="주문하기">
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="./detail.html" class="menu-detail">
+                        <div class="menu-img-area">
+                            <img src="https://via.placeholder.com/100x110/ffffff/000000" alt="{메뉴명}" class="menu-img" width="100" height="110"> <!-- 사이즈가 변경되지 않는 확실한 부분은 width, height 값을 명시해주는게 좋다.-->
+                        </div>
+                        <div class="menu-info-area">
+                            <p class="menu-name-group">
+                                <span class="menu-name">메뉴이름</span>
+                                <img src="../assets/images/ico-new.svg" alt="new" class="ico-new">
+                            </p>
+                            <div class="menu-order-info">
+                                <span class="menu-grade">
+                                    <img src="../assets/images/ico-star.svg" alt="별점" class="ico-star">5.00
+                                </span>
+                                <span class="menu-number-of-order">주문수<em>999</em></span>
+                            </div>
+                            <p class="menu-desc">메뉴에 대한 간단한 설명이 적혀있습니다.메뉴에 대한 간단한 설명이 적혀있습니다.</p>
+                            <p class="menu-price">9,999원</p>
+                        </div>
+                    </a>
+                    <a href="#" class="btn-cart disabled">
+                        품절
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>`
+    ))}
+    <!-- 메뉴 리스트영역 -->
+    
+    
+    `;
     }
 }
 
