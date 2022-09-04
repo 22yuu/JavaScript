@@ -23,7 +23,7 @@ timeoutPromise.then(console.log);
  * tsc hello.ts --lib es2015,dom으로 축약해서 사용함
  */
 
-import add from '../util';
+import add from './src/util';
 const value = add(1,2);
 console.log(value);
 /**

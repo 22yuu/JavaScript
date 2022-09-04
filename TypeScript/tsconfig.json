@@ -1,10 +1,10 @@
 {
     // typescript 컴파일러에 포함되어질 파일들을 include로 설정
     "include": [
-        "src/**/*.ts" // src폴더 하위 폴더 .ts확장자
-    ],
+        "src/**/*.ts", // src폴더 하위 폴더 .ts확장자
+   greeting.ts
     "exclude": [ // 제외할 폴더
-        "node_modules"
+        "node_modules",
     ],
     "compilerOptions": {
         "module": "es6",
