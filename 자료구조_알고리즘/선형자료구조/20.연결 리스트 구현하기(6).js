@@ -149,7 +149,7 @@ LinkedList.prototype.indexOf = function(value) {
 }
 
 // remove2(): indexOf + remoteAt = remove
-LinkedList.prototype.remove2 = function() {
+LinkedList.prototype.remove2 = function(value) {
     let index = this.indexOf(value);
     return this.removeAt(index);
 }
