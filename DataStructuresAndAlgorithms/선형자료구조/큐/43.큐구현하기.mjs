@@ -37,7 +37,9 @@ Queue.prototype.clear = function() {
     this.array = [];
 }
 
-let queue = new Queue([1,2,3]);
+export { Queue }
+
+/* let queue = new Queue([1,2,3]);
 console.log(queue);
 
 let data = queue.getBuffer();
@@ -63,3 +65,4 @@ console.log(queue.size());
 
 queue.clear();
 console.log(queue);
+ */
