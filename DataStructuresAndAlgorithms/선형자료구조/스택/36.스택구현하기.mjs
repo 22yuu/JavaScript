@@ -58,8 +58,8 @@ Stack.prototype.includes = function (element) {
     return false;
 }
 
-
-let stack = new Stack([1, 2, 3]);
+export { Stack };
+/* let stack = new Stack([1, 2, 3]);
 
 console.log(stack);
 
@@ -87,4 +87,4 @@ console.log(stack.indexOf(1, 2));
 
 console.log(stack.includes(1));
 console.log(stack.includes(2));
-console.log(stack.includes(4));
+console.log(stack.includes(4)); */
