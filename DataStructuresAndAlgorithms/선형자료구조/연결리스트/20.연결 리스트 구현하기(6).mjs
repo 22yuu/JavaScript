@@ -134,7 +134,7 @@ LinkedList.prototype.removeAt = function(position = 0) {
 
 // indexOf(): value 값을 갖는 노드 위치 반환
 LinkedList.prototype.indexOf = function(value) {
-    let current = this.head;
+    let current = this.head,
     index = 0;
 
     while(current != null) {
@@ -157,8 +157,8 @@ LinkedList.prototype.remove2 = function(value) {
 
 
 /* Test code */
-let ll = new LinkedList();
-console.log(ll);
+// let ll = new LinkedList();
+// console.log(ll);
 
 /* append() 메서드 구현 전 노드 추가
 ll.head = new Node(123);
@@ -171,12 +171,12 @@ console.log(ll);
 */
 
 // append() 메서드 구현 후 노드 추가
-ll.insert(1);
-ll.insert(10);
-ll.insert(100);
-ll.insert(2, 1);
-ll.insert(3, 3);
-ll.printNode();
+// ll.insert(1);
+// ll.insert(10);
+// ll.insert(100);
+// ll.insert(2, 1);
+// ll.insert(3, 3);
+// ll.printNode();
 
 /*
 console.log(ll.removeAt(1000));
@@ -189,6 +189,8 @@ console.log(ll.removeAt(100));
 ll.printNode();
 */
 
-ll.indexOf(100);
+// ll.indexOf(100);
 
-console.log(ll.size());
+// console.log(ll.size());
+
+export { LinkedList }
